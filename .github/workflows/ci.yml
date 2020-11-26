@@ -2,11 +2,7 @@ name: ci
 on: [push, pull_request]
 jobs:
   test:
-    strategy:
-      fail-fast: false
-      matrix:
-        runs-on: [windows-latest, ubuntu-latest, macos-latest]
-    runs-on: ${{ matrix.runs-on }}
+    runs-on: windows-latest
     steps:
     - name: set test variable
       uses: myci-actions/export-env-var-powershell@master
