@@ -48,7 +48,7 @@ jobs:
     - name: check test variable value after appending command output in bash
       run: |
         echo TEST_VAR = $TEST_VAR
-        [ "$TEST_VAR" == "initial_value;appended_value;amd64" ] || exit 1
+        [ "$TEST_VAR" == "initial_value;appended_value;AMD64" ] || exit 1
       shell: bash
     - name: check test variable value after appending command output in powershell
       run: |
