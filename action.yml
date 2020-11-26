@@ -14,5 +14,5 @@ runs:
   using: "composite"
   steps:
     - name: export environment variable
-      run: echo "${{ inputs.name }}=${{ inputs.name }}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+      run: echo "${{ inputs.name }}=${{ inputs.value }}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
       shell: powershell
