@@ -1,0 +1,58 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        runs-on: [windows-latest, ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.runs-on }}
+    steps:
+    - name: set test variable
+      uses: myci-actions/export-env-var-powershell@master
+      with:
+        name: TEST_VAR
+        value: initial_value
+    - name: check test variable value in bash
+      run: |
+        echo TEST_VAR = $TEST_VAR
+        [ "$TEST_VAR" == "initial_value" ] || exit 1
+      shell: bash
+    - name: check test variable value in powershell
+      run: |
+        Write-Host "TEST_VAR = $env:TEST_VAR"
+        if ( $env:TEST_VAR -ne "initial_value" ) { exit 1 }
+      shell: powershell
+      if: runner.os == 'Windows'
+    - name: append value to test variable
+      uses: myci-actions/export-env-var-powershell@master
+      with:
+        name: TEST_VAR
+        value: $env:TEST_VAR;appended_value
+    - name: check test variable value after appending value in bash
+      run: |
+        echo TEST_VAR = $TEST_VAR
+        [ "$TEST_VAR" == "initial_value;appended_value" ] || exit 1
+      shell: bash
+    - name: check test variable value after appending value in powershell
+      run: |
+        Write-Host "TEST_VAR = $env:TEST_VAR"
+        if ( $env:TEST_VAR -ne "initial_value;appended_value" ) { exit 1 }
+      shell: powershell
+      if: runner.os == 'Windows'
+    - name: append command output to test variable
+      uses: myci-actions/export-env-var-powershell@master
+      with:
+        name: TEST_VAR
+        value: $env:TEST_VAR;$env:PROCESSOR_ARCHITECTURE
+    - name: check test variable value after appending command output in bash
+      run: |
+        echo TEST_VAR = $TEST_VAR
+        [ "$TEST_VAR" == "initial_value;appended_value;amd64" ] || exit 1
+      shell: bash
+    - name: check test variable value after appending command output in powershell
+      run: |
+        Write-Host "TEST_VAR = $env:TEST_VAR"
+        if ( $env:TEST_VAR -ne "initial_value;appended_value;$env:PROCESSOR_ARCHITECTURE" ) { exit 1 }
+      shell: powershell
+      if: runner.os == 'Windows'

@@ -1,0 +1,26 @@
+# export-env-var-powershell
+Set and export environment variable in powershell. The resulting environment variable value will be persistent across all the following job steps.
+
+Step syntax:
+
+....
+- name: <name>
+  uses: myci-actions/export-env-var-powershell@<version>
+  with:
+    name: <variable-name>
+    value: <variable-value>
+....
+
+Arguments:
+
+- `<variable-name>` - Name of the variable to set.
+- `<variable-value>` - Variable value.
+
+Step example:
+....
+- name: add path to PATH environment variable
+  uses: myci-actions/export-env-var-powershell@1
+  with:
+    name: PATH
+    value: $env:PATH;c:\some\path
+....
