@@ -5,7 +5,7 @@ jobs:
     runs-on: windows-latest
     steps:
     - name: set test variable
-      uses: myci-actions/export-env-var-powershell@master
+      uses: myci-actions/export-env-var-powershell@main
       with:
         name: TEST_VAR
         value: initial_value
@@ -21,7 +21,7 @@ jobs:
       shell: powershell
       if: runner.os == 'Windows'
     - name: append value to test variable
-      uses: myci-actions/export-env-var-powershell@master
+      uses: myci-actions/export-env-var-powershell@main
       with:
         name: TEST_VAR
         value: $env:TEST_VAR;appended_value
@@ -37,7 +37,7 @@ jobs:
       shell: powershell
       if: runner.os == 'Windows'
     - name: append command output to test variable
-      uses: myci-actions/export-env-var-powershell@master
+      uses: myci-actions/export-env-var-powershell@main
       with:
         name: TEST_VAR
         value: $env:TEST_VAR;$env:PROCESSOR_ARCHITECTURE
